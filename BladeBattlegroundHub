@@ -1,0 +1,79 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Consistt/Ui/main/UnLeaked"))()
+
+
+library.rank = "developer"
+local Wm = library:Watermark("Rblxvn | v" .. library.version ..  " | " .. library:GetUsername() .. " | rank: " .. library.rank)
+local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
+coroutine.wrap(function()
+    while wait(.75) do
+        FpsWm:Text("fps: " .. library.fps)
+    end
+end)()
+
+
+local Notif = library:InitNotifications()
+
+for i = 20,0,-1 do 
+    task.wait(0.05)
+    local LoadingXSX = Notif:Notify("Rblxvn", 3, "information") -- notification, alert, error, success, information
+end 
+
+library.title = "Rblxvn"
+
+library:Introduction()
+wait(1)
+local Init = library:Init()
+
+local Tab1 = Init:NewTab("Combat tab")
+
+local Section1 = Tab1:NewSection("Combat")
+
+
+local Label1 = Tab1:NewLabel("Combat", "center")--"left", "center", "right"
+
+
+local Button1 = Tab1:NewButton("No Cooldown", function()
+    local s = require(game:GetService("Players").LocalPlayer.PlayerScripts.ClientManager.Debounces)
+
+while wait(0.2) do
+   for i,v in pairs(s) do
+       if type(i) == "string" and (i:find("skill") or table.find({"parry","dash"},i)) then
+           s[i] = nil
+       end
+   end
+end
+end)
+
+local Button1 = Tab1:NewButton("High Damage", function()
+    local multiplier = 5 
+
+    local old;
+    old = hookmetamethod(game,"__namecall", function(...)
+       local args = {...}
+       if getnamecallmethod() == "FireServer" and args[2] ~= nil and type(args[2]) == "table" and args[2]["attack"] then
+           for i = 1,multiplier do
+               old(...)
+           end
+           return
+       end
+       return old(...)
+    end)
+end)
+
+local Button1 = Tab1:NewButton("God Mode", function()
+    getgenv().GodMode = true
+
+    if not Already then
+       getgenv().Already = true
+       while task.wait(1) do
+           if GodMode then
+               game:GetService("ReplicatedStorage").RemoteEvents.RoyalGauntletsSkill1:FireServer()
+           end
+       end
+    end
+end)
+
+
+
+
+local FinishedLoading = Notif:Notify("Loaded GUI", 4, "success")
